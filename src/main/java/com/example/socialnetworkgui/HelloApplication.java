@@ -1,12 +1,15 @@
 package com.example.socialnetworkgui;
 
+import com.example.socialnetworkgui.controller.LoginController;
 import com.example.socialnetworkgui.controller.UserController;
 import com.example.socialnetworkgui.domain.Friendship;
 import com.example.socialnetworkgui.domain.Pair;
 import com.example.socialnetworkgui.domain.User;
+import com.example.socialnetworkgui.domain.validators.FriendshipValidator;
 import com.example.socialnetworkgui.domain.validators.UserValidator;
 import com.example.socialnetworkgui.domain.validators.Validator;
 import com.example.socialnetworkgui.repo.Repository;
+import com.example.socialnetworkgui.repo.db.FriendshipDBRepository;
 import com.example.socialnetworkgui.repo.db.UserDbRepo;
 import com.example.socialnetworkgui.service.ServiceGUI;
 import javafx.application.Application;
@@ -29,19 +32,25 @@ public class HelloApplication extends Application {
 
         Validator<User> validator= new UserValidator();
         UserDbRepo uRepo= new UserDbRepo(validator,"jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres");
-        service= new ServiceGUI(uRepo);
+        Validator<Friendship> valF= new FriendshipValidator();
+        FriendshipDBRepository fRepo= new FriendshipDBRepository("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valF);
+
+        service= new ServiceGUI(uRepo, fRepo);
         initView(primaryStage);
-        primaryStage.setWidth(800);
+        primaryStage.setWidth(600);
+        primaryStage.setHeight(400);
         primaryStage.show();
     }
 
     private void initView(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("views/user-view.fxml"));
-
+        //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("views/userView.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/views/loginView.fxml"));
         AnchorPane userLayout = fxmlLoader.load();
         primaryStage.setScene(new Scene(userLayout));
 
-        UserController userController = fxmlLoader.getController();
-        userController.setService(service);
+        //UserController userController = fxmlLoader.getController();
+        LoginController loginController= fxmlLoader.getController();
+        //userController.setService(service);
+        loginController.setServiceGUI(service);
     }
 }

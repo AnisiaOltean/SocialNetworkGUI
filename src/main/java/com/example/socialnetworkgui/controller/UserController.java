@@ -1,29 +1,39 @@
 package com.example.socialnetworkgui.controller;
 
+import com.example.socialnetworkgui.domain.Friendship;
 import com.example.socialnetworkgui.domain.User;
+import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.utils.events.FriendshipEntityChangeEvent;
 import com.example.socialnetworkgui.utils.events.UserEntityChangeEvent;
 import com.example.socialnetworkgui.utils.observer.Observer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class UserController implements Observer<UserEntityChangeEvent>{
+public class UserController implements Observer<FriendshipEntityChangeEvent>{
 
     ServiceGUI service;
     ObservableList<User> model= FXCollections.observableArrayList();
 
     @FXML
     public TableView<User> tableView;
+
     @FXML
-    public TableColumn<User, Long> idColumn;
+    private TableColumn<User, String> emailColumn;
 
     @FXML
     public TableColumn<User, String> fnameColumn;
@@ -31,6 +41,15 @@ public class UserController implements Observer<UserEntityChangeEvent>{
 
     @FXML
     public TableColumn<User,String> lnameColumn;
+
+    @FXML
+    private Label loggedLabel;
+
+    @FXML
+    private Button addFriendBtn;
+
+    @FXML
+    private Button removeFriendBtn;
 
     public void setService(ServiceGUI service){
         this.service= service;
@@ -42,19 +61,47 @@ public class UserController implements Observer<UserEntityChangeEvent>{
     public void initialize(){
         fnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("firstName"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("lastName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<User, String>("email"));
         tableView.setItems(model);
     }
 
     private void initModel() {
-        Iterable<User> allUsers = service.getAll();
+        Iterable<User> allUsers = service.getLoggedUser().getFriends();
         List<User> users = StreamSupport.stream(allUsers.spliterator(), false)
                 .collect(Collectors.toList());
         model.setAll(users);
+        loggedLabel.setText("Logged in as: "+ service.getLoggedUser().getFirstName()+" "+service.getLoggedUser().getLastName());
     }
 
     @Override
-    public void update(UserEntityChangeEvent userEntityChangeEvent) {
-
+    public void update(FriendshipEntityChangeEvent friendshipEntityChangeEvent) {
         initModel();
+    }
+
+    public void handleAddFriend(ActionEvent actionEvent) throws IOException {
+        Stage addUserStage= new Stage();
+        addUserStage.setTitle("Add friend");
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/addView.fxml"));
+        AnchorPane layout= loader.load();
+
+        Scene scene= new Scene(layout);
+        addUserStage.setScene(scene);
+        AddView ctrl= loader.getController();
+        ctrl.setServiceGUI(service);
+
+        addUserStage.show();
+    }
+
+    public void handleRemove(ActionEvent actionEvent) {
+        try{
+            Long id1= service.getLoggedUser().getId();
+            User selected= tableView.getSelectionModel().getSelectedItem();
+            Long id2= selected.getId();
+            service.removeFriendship(id1, id2);
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Deleted friendship!");
+        }catch (EntityNotFound | NullPointerException e){
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
     }
 }
