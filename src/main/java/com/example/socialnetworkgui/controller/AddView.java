@@ -3,6 +3,7 @@ package com.example.socialnetworkgui.controller;
 import com.example.socialnetworkgui.domain.User;
 import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
+import com.example.socialnetworkgui.domain.exceptions.ValidationException;
 import com.example.socialnetworkgui.service.ServiceGUI;
 import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.collections.FXCollections;
@@ -95,7 +96,7 @@ public class AddView {
             Long id2= selected.getId();
             serviceRequest.sendRequest(id1, id2);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Sent friend request!");
-        }catch (EntityNotFound|EntityAlreadyFound|NullPointerException e){
+        }catch (EntityNotFound | EntityAlreadyFound | NullPointerException | ValidationException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }
     }

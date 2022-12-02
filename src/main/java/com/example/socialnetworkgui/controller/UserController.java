@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,6 +31,9 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
     ServiceGUI service;
     ServiceRequest serviceRequest;
     ObservableList<User> model= FXCollections.observableArrayList();
+
+    @FXML
+    private AnchorPane userView;
 
     @FXML
     public TableView<User> tableView;
@@ -55,10 +59,15 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
 
     @FXML
     private Button requestsBtn;
+    @FXML
+    private Button logOutBtn;
 
-    public void setService(ServiceGUI service, ServiceRequest serviceRequest){
+    private Stage stage;
+
+    public void setService(ServiceGUI service, ServiceRequest serviceRequest, Stage stage){
         this.service= service;
         this.serviceRequest=serviceRequest;
+        this.stage=stage;
         service.addObserver(this);
         initModel();
     }
@@ -105,6 +114,7 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
             User selected= tableView.getSelectionModel().getSelectedItem();
             Long id2= selected.getId();
             service.removeFriendship(id1, id2);
+            serviceRequest.deleteRequest(id1, id2);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Deleted friendship!");
         }catch (EntityNotFound | NullPointerException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
@@ -123,5 +133,10 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
         RequestsController ctrl= loader.getController();
         ctrl.setService(serviceRequest, service);
         stage.show();
+    }
+
+    public void handleLogOut(ActionEvent actionEvent) {
+        service.logOut();
+        stage.close();
     }
 }

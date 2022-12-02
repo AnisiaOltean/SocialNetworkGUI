@@ -1,6 +1,8 @@
 package com.example.socialnetworkgui.controller;
 
+import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
+import com.example.socialnetworkgui.domain.exceptions.ValidationException;
 import com.example.socialnetworkgui.service.ServiceGUI;
 import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
@@ -28,6 +30,9 @@ public class LoginController {
 
     @FXML
     private GridPane gridLayout;
+
+    @FXML
+    private Button signInBtn;
 
     @FXML
     private TextField lastNameField;
@@ -60,11 +65,18 @@ public class LoginController {
             serviceGUI.logIn(firstName, lastName,email);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
             showUserDialog();
+            clearFields();
         }catch (EntityNotFound e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void clearFields(){
+        firstNameField.clear();
+        lastNameField.clear();
+        emailField.clear();
     }
 
     private void showUserDialog() throws IOException {
@@ -77,8 +89,25 @@ public class LoginController {
         Scene scene= new Scene(layout);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI, serviceRequest);
+        userController.setService(serviceGUI, serviceRequest, userStage);
 
         userStage.show();
+    }
+
+    public void handleSignIn(ActionEvent actionEvent) {
+        String firstName= firstNameField.getText();
+        String lastName= lastNameField.getText();
+        String email= emailField.getText();
+
+        try{
+            serviceGUI.addUser(firstName, lastName, email);
+            serviceGUI.logIn(firstName, lastName, email);
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
+            showUserDialog();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (EntityAlreadyFound | IllegalArgumentException| ValidationException e){
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
     }
 }

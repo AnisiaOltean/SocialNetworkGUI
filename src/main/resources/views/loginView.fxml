@@ -46,5 +46,6 @@
          </padding>
       </GridPane>
       <Button fx:id="logInBtn" layoutX="490.0" layoutY="305.0" mnemonicParsing="false" onAction="#handleLogIn" prefHeight="40.0" prefWidth="78.0" text="Log in" />
+      <Button fx:id="signInBtn" layoutX="353.0" layoutY="306.0" mnemonicParsing="false" onAction="#handleSignIn" prefHeight="38.0" prefWidth="92.0" text="Sign In" />
    </children>
 </AnchorPane>

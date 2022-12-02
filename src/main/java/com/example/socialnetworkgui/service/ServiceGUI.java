@@ -16,6 +16,7 @@ import com.example.socialnetworkgui.utils.observer.Observer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
 
@@ -47,6 +48,10 @@ public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
     public User logIn(String firstName, String lastName, String email){
         User found= findByNameEmail(firstName, lastName, email);
         return found;
+    }
+
+    public void logOut(){
+        loggedUser=null;
     }
 
     public User findByNameEmail(String firstName, String lastName, String email){
@@ -105,6 +110,50 @@ public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
             this.connectFriends();
             notifyObservers(new FriendshipEntityChangeEvent(ChangeEventType.DELETE, removed));
         }
+    }
+
+    private Long generateID(){
+        Long maxID=0L;
+        for(User u: userRepo.findAll()){
+            if(u.getId()>maxID) maxID=u.getId();
+        }
+        int found;
+        for(Long i=1L; i<=maxID;i++){
+            found=0;
+            for(User u: userRepo.findAll()){
+                if(Objects.equals(u.getId(), i)){
+                    found=1;
+                    break;
+                }
+            }
+            if(found==0) return i;
+        }
+        return maxID+1;
+    }
+
+    public User findWithEmail(String email){
+        for(User u: userRepo.findAll()){
+            if(u.getEmail().equals(email)) return u;
+        }
+        return null;
+    }
+
+    /**
+     * Add a user in repository
+     * @param fName- String, user's firstName
+     * @param lName- String, user's lastName
+     * @param email- String, user's email
+     * @return User, added user (null if it did not exist before)
+     * @throws EntityAlreadyFound if user already exists
+     * @throws ValidationException if user is not valid
+     */
+    public User addUser(String fName, String lName, String email){
+        User newUser= new User(fName, lName, email);
+        newUser.setId(this.generateID());
+        if(findWithEmail(newUser.getEmail())!=null){
+            throw new EntityAlreadyFound("Userul cu emailul dat exista deja in lista!");
+        }
+        return userRepo.save(newUser);
     }
 
     @Override

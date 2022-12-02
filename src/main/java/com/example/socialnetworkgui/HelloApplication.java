@@ -45,6 +45,7 @@ public class HelloApplication extends Application {
         service= new ServiceGUI(uRepo, fRepo);
         serviceRequest= new ServiceRequest(uRepo, fRepo, rRepo);
         initView(primaryStage);
+        primaryStage.setTitle("LogIn page");
         primaryStage.setWidth(600);
         primaryStage.setHeight(400);
         primaryStage.show();

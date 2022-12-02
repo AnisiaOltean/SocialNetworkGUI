@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -103,10 +104,11 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
         Long id1= serviceGUI.getLoggedUser().getId();
         Long id2= serviceRequest.getWithName(ur.getFirstName(), ur.getLastName()).getId();
 
-        Request toUpdate= new Request(id1, id2, LocalDateTime.now(), RequestStatus.ACCEPTED);
+        Request toUpdate= new Request(id1, id2, LocalDateTime.parse(ur.getSentAt(), DATE_TIME_FORMATTER), RequestStatus.ACCEPTED);
         try{
             serviceGUI.addFriendship(id1, id2);
             serviceRequest.updateRequest(toUpdate);
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Accepted friend request!");
         }catch (EntityAlreadyFound| EntityNotFound e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }
@@ -124,6 +126,7 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
         //Request toDelete= new Request(id1, id2, LocalDateTime.parse(ur.getSentAt(), DATE_TIME_FORMATTER), RequestStatus.SENT);
         try{
             serviceRequest.deleteRequest(id1, id2);
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Rejected friend request!");
 
         }catch (EntityNotFound| IllegalArgumentException| ValidationException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
