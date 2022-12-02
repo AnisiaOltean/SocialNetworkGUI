@@ -4,6 +4,7 @@ import com.example.socialnetworkgui.domain.User;
 import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import java.util.stream.StreamSupport;
 public class AddView {
 
     ServiceGUI serviceGUI;
+    ServiceRequest serviceRequest;
 
     private ObservableList<User> model= FXCollections.observableArrayList();
 
@@ -44,8 +46,9 @@ public class AddView {
     @FXML
     private Button addBtn;
 
-    public void setServiceGUI(ServiceGUI serviceGUI){
+    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest){
         this.serviceGUI=serviceGUI;
+        this.serviceRequest= serviceRequest;
         initModel();
     }
 
@@ -81,6 +84,18 @@ public class AddView {
             serviceGUI.addFriendship(id1, id2);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Added friendship!");
         } catch (EntityNotFound| EntityAlreadyFound| NullPointerException e) {
+            MessageAlert.showErrorMessage(null, e.getMessage());
+        }
+    }
+
+    public void addRequest(ActionEvent actionEvent) {
+        try{
+            User selected= usersTable.getSelectionModel().getSelectedItem();
+            Long id1= serviceGUI.getLoggedUser().getId();
+            Long id2= selected.getId();
+            serviceRequest.sendRequest(id1, id2);
+            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Sent friend request!");
+        }catch (EntityNotFound|EntityAlreadyFound|NullPointerException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }
     }

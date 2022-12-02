@@ -23,5 +23,6 @@
       </Label>
       <Button fx:id="addFriendBtn" layoutX="458.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleAddFriend" prefHeight="31.0" prefWidth="73.0" text="Add friend" />
       <Button fx:id="removeFriendBtn" layoutX="335.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleRemove" prefHeight="31.0" prefWidth="94.0" text="Remove friend" />
+      <Button fx:id="requestsBtn" layoutX="156.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleRequests" prefHeight="31.0" prefWidth="149.0" text="Friend requests" />
    </children>
 </AnchorPane>

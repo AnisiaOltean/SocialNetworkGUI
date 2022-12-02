@@ -2,6 +2,7 @@ package com.example.socialnetworkgui.controller;
 
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class LoginController {
 
     ServiceGUI serviceGUI;
+    ServiceRequest serviceRequest;
     @FXML
     private TextField emailField;
 
@@ -33,8 +35,9 @@ public class LoginController {
     @FXML
     private Button logInBtn;
 
-    public void setServiceGUI(ServiceGUI serviceGUI){
+    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest){
         this.serviceGUI= serviceGUI;
+        this.serviceRequest=serviceRequest;
     }
 
     @FXML
@@ -74,7 +77,7 @@ public class LoginController {
         Scene scene= new Scene(layout);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI);
+        userController.setService(serviceGUI, serviceRequest);
 
         userStage.show();
     }

@@ -4,6 +4,7 @@ import com.example.socialnetworkgui.domain.Friendship;
 import com.example.socialnetworkgui.domain.User;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceRequest;
 import com.example.socialnetworkgui.utils.events.FriendshipEntityChangeEvent;
 import com.example.socialnetworkgui.utils.events.UserEntityChangeEvent;
 import com.example.socialnetworkgui.utils.observer.Observer;
@@ -27,6 +28,7 @@ import java.util.stream.StreamSupport;
 public class UserController implements Observer<FriendshipEntityChangeEvent>{
 
     ServiceGUI service;
+    ServiceRequest serviceRequest;
     ObservableList<User> model= FXCollections.observableArrayList();
 
     @FXML
@@ -51,8 +53,12 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
     @FXML
     private Button removeFriendBtn;
 
-    public void setService(ServiceGUI service){
+    @FXML
+    private Button requestsBtn;
+
+    public void setService(ServiceGUI service, ServiceRequest serviceRequest){
         this.service= service;
+        this.serviceRequest=serviceRequest;
         service.addObserver(this);
         initModel();
     }
@@ -88,7 +94,7 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
         Scene scene= new Scene(layout);
         addUserStage.setScene(scene);
         AddView ctrl= loader.getController();
-        ctrl.setServiceGUI(service);
+        ctrl.setServiceGUI(service, serviceRequest);
 
         addUserStage.show();
     }
@@ -103,5 +109,19 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
         }catch (EntityNotFound | NullPointerException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }
+    }
+
+    public void handleRequests(ActionEvent actionEvent) throws IOException {
+        Stage stage= new Stage();
+        stage.setTitle("Requests page");
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/requestsView.fxml"));
+
+        AnchorPane layout= loader.load();
+        Scene scene= new Scene(layout);
+        stage.setScene(scene);
+        RequestsController ctrl= loader.getController();
+        ctrl.setService(serviceRequest, service);
+        stage.show();
     }
 }
