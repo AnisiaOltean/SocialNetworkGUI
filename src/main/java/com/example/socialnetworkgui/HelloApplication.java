@@ -47,7 +47,7 @@ public class HelloApplication extends Application {
         initView(primaryStage);
         primaryStage.setTitle("LogIn page");
         primaryStage.setWidth(600);
-        primaryStage.setHeight(400);
+        primaryStage.setHeight(427);
         primaryStage.show();
     }
 

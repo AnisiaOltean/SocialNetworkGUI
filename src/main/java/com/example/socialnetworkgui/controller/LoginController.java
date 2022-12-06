@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -32,10 +33,11 @@ public class LoginController {
     private GridPane gridLayout;
 
     @FXML
-    private Button signInBtn;
+    private TextField lastNameField;
+
 
     @FXML
-    private TextField lastNameField;
+    private Hyperlink signInLink;
 
     @FXML
     private Button logInBtn;
@@ -94,20 +96,35 @@ public class LoginController {
         userStage.show();
     }
 
-    public void handleSignIn(ActionEvent actionEvent) {
-        String firstName= firstNameField.getText();
-        String lastName= lastNameField.getText();
-        String email= emailField.getText();
+//    public void handleSignIn(ActionEvent actionEvent) {
+//        String firstName= firstNameField.getText();
+//        String lastName= lastNameField.getText();
+//        String email= emailField.getText();
+//
+//        try{
+//            serviceGUI.addUser(firstName, lastName, email);
+//            serviceGUI.logIn(firstName, lastName, email);
+//            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
+//            showUserDialog();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } catch (EntityAlreadyFound | IllegalArgumentException| ValidationException e){
+//            MessageAlert.showErrorMessage(null, e.getMessage());
+//        }
+//    }
 
-        try{
-            serviceGUI.addUser(firstName, lastName, email);
-            serviceGUI.logIn(firstName, lastName, email);
-            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
-            showUserDialog();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (EntityAlreadyFound | IllegalArgumentException| ValidationException e){
-            MessageAlert.showErrorMessage(null, e.getMessage());
-        }
+    public void handleSignLink(ActionEvent actionEvent) throws IOException {
+        Stage userStage= new Stage();
+        userStage.setTitle("SignIn page");
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/signInView.fxml"));
+        AnchorPane layout= loader.load();
+
+        Scene scene= new Scene(layout);
+        userStage.setScene(scene);
+        SignInController signInController= loader.getController();
+        signInController.setServiceGUI(serviceGUI, serviceRequest);
+
+        userStage.show();
     }
 }

@@ -92,6 +92,10 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
 
     @Override
     public void update(RequestEntityChangeEvent requestEntityChangeEvent) {
+        System.out.println("req");
+        System.out.println(requestEntityChangeEvent.getData());
+        System.out.println(requestEntityChangeEvent.getOldData());
+        System.out.println(requestEntityChangeEvent.getType());
         initModel();
     }
 
