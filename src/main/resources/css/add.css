@@ -1,0 +1,36 @@
+.root{
+    -fx-background-color: #e1ffeb;
+    -fx-font-size: 14px;
+}
+
+.table-view .column-header{
+    -fx-background-color: #1CBE8E;
+}
+
+.table-view .column-header .label{
+    -fx-text-fill: #24484C;
+}
+
+.table-row-cell:selected{
+    -fx-background-color: #E1FFEB;
+}
+
+/*change background color on selection*/
+.table-row-cell:selected .text{
+    -fx-fill: #004f32;
+}
+
+.label{
+    -fx-text-fill: #24484C;
+}
+
+#addBtn{
+    -fx-background-color: #1cbe8e;
+    -fx-text-fill: #24484C;
+    -fx-border-radius: 15px;
+}
+
+#addBtn:hover{
+    -fx-background-color: #004f32;
+    -fx-text-fill: white;
+}

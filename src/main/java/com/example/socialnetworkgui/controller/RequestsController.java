@@ -78,13 +78,13 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
     private void initModel(){
         Iterable<Request> all= serviceRequest.allRequests();
 
-        //get requests for current user
+        //get requests for current user- has id2
         Predicate<Request> p= r-> r.getId().getSecond().equals(serviceGUI.getLoggedUser().getId());
         List<Request> allR= StreamSupport.stream(all.spliterator(), false)
                 .filter(p).collect(Collectors.toList());
 
         //convert Request to UserRequestDTO
-        List<UserRequestDTO> allUR= allR.stream().map(x-> new UserRequestDTO(serviceRequest.getWithId(x.getId().getFirst()).getFirstName(),
+        List<UserRequestDTO> allUR= allR.stream().map(x-> new UserRequestDTO(x.getId().getFirst(),serviceRequest.getWithId(x.getId().getFirst()).getFirstName(),
                 serviceRequest.getWithId(x.getId().getFirst()).getLastName(), x.getSentAt().format(DATE_TIME_FORMATTER), x.getStatus().toString())).collect(Collectors.toList());
         model.setAll(allUR);
     }
@@ -106,7 +106,9 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
             return;
         }
         Long id1= serviceGUI.getLoggedUser().getId();
-        Long id2= serviceRequest.getWithName(ur.getFirstName(), ur.getLastName()).getId();
+        //Long id2= serviceRequest.getWithName(ur.getFirstName(), ur.getLastName()).getId();
+        Long id2= tableRequests.getSelectionModel().getSelectedItem().getId();
+        //System.out.println("Prieten 2 are id "+id2);
 
         Request toUpdate= new Request(id1, id2, LocalDateTime.parse(ur.getSentAt(), DATE_TIME_FORMATTER), RequestStatus.ACCEPTED);
         try{
@@ -125,8 +127,8 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
             return;
         }
         Long id1= serviceGUI.getLoggedUser().getId();
-        Long id2= serviceRequest.getWithName(ur.getFirstName(), ur.getLastName()).getId();
-
+        //Long id2= serviceRequest.getWithName(ur.getFirstName(), ur.getLastName()).getId();
+        Long id2= tableRequests.getSelectionModel().getSelectedItem().getId();
         //Request toDelete= new Request(id1, id2, LocalDateTime.parse(ur.getSentAt(), DATE_TIME_FORMATTER), RequestStatus.SENT);
         try{
             serviceRequest.deleteRequest(id1, id2);

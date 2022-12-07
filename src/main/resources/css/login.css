@@ -1,0 +1,23 @@
+.root{
+    -fx-background-color: #e1ffeb;
+    -fx-font-size: 14px;
+}
+
+#welcomeLabel{
+   -fx-font-family: "Segoe UI Black";
+   -fx-font-size: 24px;
+   -fx-text-fill: #004f32;
+}
+
+.label{
+    -fx-text-fill: #24484C;
+}
+#logInBtn{
+    -fx-background-color: #1cbe8e;
+    -fx-text-fill: #24484C;
+    -fx-border-radius: 15px;
+}
+#logInBtn:hover{
+    -fx-background-color: #004f32;
+    -fx-text-fill: white;
+}

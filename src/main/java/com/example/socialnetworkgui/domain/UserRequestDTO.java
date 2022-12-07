@@ -1,16 +1,27 @@
 package com.example.socialnetworkgui.domain;
 
 public class UserRequestDTO {
+
+    private Long id;
     private String firstName;
     private String lastName;
     private String sentAt;
     private String status;
 
-    public UserRequestDTO(String firstName, String lastName, String sentAt, String status) {
+    public UserRequestDTO(Long id, String firstName, String lastName, String sentAt, String status) {
+        this.id=id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.sentAt = sentAt;
         this.status = status;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -43,5 +54,16 @@ public class UserRequestDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRequestDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", sentAt='" + sentAt + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 }

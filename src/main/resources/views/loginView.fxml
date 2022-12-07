@@ -10,11 +10,10 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="427.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.LoginController">
+<AnchorPane prefHeight="427.0" prefWidth="600.0" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.LoginController">
    <children>
-      <GridPane fx:id="gridLayout" layoutY="62.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="600.0" AnchorPane.bottomAnchor="88.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0">
+      <GridPane fx:id="gridLayout" layoutY="87.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="600.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="87.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" percentWidth="21.0" prefWidth="135.5" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="544.0" minWidth="10.0" percentWidth="79.0" prefWidth="444.5" />
@@ -22,27 +21,27 @@
         <rowConstraints>
           <RowConstraints maxHeight="145.5" minHeight="30.0" prefHeight="72.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="228.5" minHeight="10.0" prefHeight="74.5" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="233.5" minHeight="10.0" prefHeight="74.5" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="74.5" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="66.0" text="First Name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <Label maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="40.0" prefWidth="81.0" text="First Name:" GridPane.halignment="RIGHT" GridPane.valignment="CENTER" />
             <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="397.0" GridPane.columnIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="20.0" right="40.0" />
                </GridPane.margin>
             </TextField>
             <TextField fx:id="lastNameField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="20.0" right="40.0" />
                </GridPane.margin>
             </TextField>
             <TextField fx:id="emailField" prefHeight="25.0" prefWidth="410.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="20.0" right="20.0" />
+                  <Insets left="20.0" right="40.0" />
                </GridPane.margin>
             </TextField>
-            <Label prefHeight="38.0" prefWidth="60.0" text="Last Name:" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label prefHeight="36.0" prefWidth="42.0" text="Email:" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+            <Label prefHeight="38.0" prefWidth="80.0" text="Last Name:" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label prefHeight="36.0" prefWidth="80.0" text="Email:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
          </children>
          <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -59,11 +58,6 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Text layoutX="255.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autentificare">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Text>
+      <Label fx:id="welcomeLabel" alignment="CENTER" contentDisplay="TOP" layoutY="52.0" prefHeight="20.0" prefWidth="600.0" text="Autentificare" textAlignment="CENTER" />
    </children>
 </AnchorPane>

@@ -56,16 +56,20 @@ public class Main {
 //        sR.deleteRequest(1L,2L);
 //        sR.getAllRequests().forEach(System.out::println);
 
-//        Iterable<Request> all= serviceRequest.allRequests();
+        System.out.println("Aici--------------------------");
+        Iterable<Request> all= serviceRequest.allRequests();
+        System.out.println(all);
 //
 //        all.forEach(System.out::println);
 //
-//        Predicate<Request> p= r-> r.getId().getSecond().equals(1L);
-//        List<Request> allR= StreamSupport.stream(all.spliterator(), false)
-//                .filter(p).collect(Collectors.toList());
-//
-//        //convert Request to UserRequestDTO
-//        List<UserRequestDTO> allUR= allR.stream().map(x-> new UserRequestDTO(serviceRequest.getWithId(x.getId().getFirst()).getFirstName(),
-//                serviceRequest.getWithId(x.getId().getFirst()).getLastName(), x.getSentAt().format(DATE_TIME_FORMATTER), x.getStatus().toString())).collect(Collectors.toList());
+        Predicate<Request> p= r-> r.getId().getSecond().equals(9L);
+        List<Request> allR= StreamSupport.stream(all.spliterator(), false)
+                .filter(p).collect(Collectors.toList());
+
+        System.out.println(allR);
+        //convert Request to UserRequestDTO
+        List<UserRequestDTO> allUR= allR.stream().map(x-> new UserRequestDTO(x.getId().getFirst(), serviceRequest.getWithId(x.getId().getFirst()).getFirstName(),
+                serviceRequest.getWithId(x.getId().getFirst()).getLastName(), x.getSentAt().format(DATE_TIME_FORMATTER), x.getStatus().toString())).collect(Collectors.toList());
+        System.out.println(allUR);
     }
 }
