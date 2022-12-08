@@ -1,5 +1,6 @@
 package com.example.socialnetworkgui.controller;
 
+import com.example.socialnetworkgui.domain.User;
 import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.domain.exceptions.ValidationException;
@@ -8,11 +9,9 @@ import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -25,6 +24,9 @@ public class LoginController {
     ServiceRequest serviceRequest;
     @FXML
     private TextField emailField;
+
+    @FXML
+    private PasswordField passwordField;
 
     @FXML
     private TextField firstNameField;
@@ -49,8 +51,6 @@ public class LoginController {
 
     @FXML
     public void initialize(){
-        firstNameField.textProperty().addListener(o-> handleChange());
-        lastNameField.textProperty().addListener(o-> handleChange());
         emailField.textProperty().addListener(o->handleChange());
     }
 
@@ -59,26 +59,26 @@ public class LoginController {
     }
 
     public void handleLogIn(ActionEvent actionEvent) {
-        String firstName= firstNameField.getText();
-        String lastName= lastNameField.getText();
         String email= emailField.getText();
+        String password= passwordField.getText();
 
         try{
-            serviceGUI.logIn(firstName, lastName,email);
+            User gasit= serviceGUI.logIn(email);
+            if(!gasit.getPassword().equals(password)){
+                MessageAlert.showErrorMessage(null, "Parola gresita!");
+                return;
+            }
+
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
             showUserDialog();
-            clearFields();
+            Node source= (Node) actionEvent.getSource();
+            Stage stage= (Stage) source.getScene().getWindow();
+            stage.close();
         }catch (EntityNotFound e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void clearFields(){
-        firstNameField.clear();
-        lastNameField.clear();
-        emailField.clear();
     }
 
     private void showUserDialog() throws IOException {

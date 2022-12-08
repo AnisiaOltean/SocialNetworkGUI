@@ -11,6 +11,8 @@ public class User extends Entity<Long>{
     private String firstName;
     private String lastName;
     private String email;
+
+    private String password;
     private List<User> friends;
 
     /**
@@ -18,12 +20,13 @@ public class User extends Entity<Long>{
      */
     private static Long prevId=0L;
 
-    public User(String firstName, String lastName, String email) {
+    public User(String firstName, String lastName, String email, String password) {
         //if(getId()==null) super.setId(this.generateID());
         //super.setId(this.generateID());
         this.firstName = firstName;
         this.lastName = lastName;
         this.email=email;
+        this.password= password;
         this.friends= new ArrayList<User>();
     }
 
@@ -35,7 +38,15 @@ public class User extends Entity<Long>{
         return lastName;
     }
 
-    public String getEmail(){return email; };
+    public String getEmail(){return email; }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public List<User> getFriends() {
         return friends;

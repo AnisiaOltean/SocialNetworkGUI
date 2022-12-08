@@ -50,7 +50,7 @@ public class Main {
         Validator<Request> valR= new RequestValidator();
         RequestDbRepo repoR= new RequestDbRepo("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valR);
         ServiceRequest serviceRequest= new ServiceRequest(uRepo, fRepo, repoR);
-
+        System.out.println(uRepo.findAll());
 
 //        ServiceRequest sR= new ServiceRequest(uRepo, fRepo, repoR);
 //        sR.deleteRequest(1L,2L);

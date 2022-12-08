@@ -135,8 +135,20 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
         stage.show();
     }
 
-    public void handleLogOut(ActionEvent actionEvent) {
+    public void handleLogOut(ActionEvent actionEvent) throws IOException {
         service.logOut();
         stage.close();
+
+        //go back to login page
+        Stage stage= new Stage();
+        stage.setTitle("Login page");
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/loginView.fxml"));
+        AnchorPane layout= loader.load();
+        Scene scene= new Scene(layout);
+        stage.setScene(scene);
+        LoginController ctrl= loader.getController();
+        ctrl.setServiceGUI(service, serviceRequest);
+        stage.show();
     }
 }

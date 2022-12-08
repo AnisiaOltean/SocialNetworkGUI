@@ -28,7 +28,8 @@ public class UserDbRepo extends InMemoryRepo<Long, User> {
                 String fName = rs.getString("firstname");
                 String lName = rs.getString("lastname");
                 String email = rs.getString("email");
-                User u = new User(fName, lName, email);
+                String password= rs.getString("password");
+                User u = new User(fName, lName, email, password);
                 u.setId(id);
                 super.save(u);
             }
@@ -51,13 +52,14 @@ public class UserDbRepo extends InMemoryRepo<Long, User> {
     public User save(User entity) {
         User returned= super.save(entity);
         if(returned==null){  //daca nu am mai gasit userul
-            String sql = "INSERT INTO users(id, firstname, lastname, email) VALUES (?,?,?,?);";
+            String sql = "INSERT INTO users(id, firstname, lastname, email, password) VALUES (?,?,?,?,?);";
             try (Connection connection = DriverManager.getConnection(URL, userName, password);
                  PreparedStatement ps = connection.prepareStatement(sql)) {
                 ps.setLong(1, entity.getId());
                 ps.setString(2, entity.getFirstName());
                 ps.setString(3, entity.getLastName());
                 ps.setString(4, entity.getEmail());
+                ps.setString(5, entity.getPassword());
                 ps.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

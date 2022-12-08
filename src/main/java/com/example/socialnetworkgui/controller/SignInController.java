@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -25,6 +26,9 @@ public class SignInController {
 
     @FXML
     private TextField lastNameText;
+
+    @FXML
+    private PasswordField passwordText;
 
     @FXML
     private Button signinBtn;
@@ -57,10 +61,11 @@ public class SignInController {
         String firstName= firstNameText.getText();
         String lastName= lastNameText.getText();
         String email= emailText.getText();
+        String password= passwordText.getText();
 
         try{
-            serviceGUI.addUser(firstName, lastName, email);
-            serviceGUI.logIn(firstName, lastName, email);
+            serviceGUI.addUser(firstName, lastName, email, password);
+            serviceGUI.logIn(email);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Account created!");
             showUserDialog();
 

@@ -35,15 +35,15 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Validator<User> validator= new UserValidator();
-        UserDbRepo uRepo= new UserDbRepo(validator,"jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres");
-        Validator<Friendship> valF= new FriendshipValidator();
-        FriendshipDBRepository fRepo= new FriendshipDBRepository("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valF);
-        Validator<Request> valR= new RequestValidator();
-        RequestDbRepo rRepo= new RequestDbRepo("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valR);
+        Validator<User> validator = new UserValidator();
+        UserDbRepo uRepo = new UserDbRepo(validator, "jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres");
+        Validator<Friendship> valF = new FriendshipValidator();
+        FriendshipDBRepository fRepo = new FriendshipDBRepository("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valF);
+        Validator<Request> valR = new RequestValidator();
+        RequestDbRepo rRepo = new RequestDbRepo("jdbc:postgresql://localhost:5432/laborator", "postgres", "postgres", valR);
 
-        service= new ServiceGUI(uRepo, fRepo);
-        serviceRequest= new ServiceRequest(uRepo, fRepo, rRepo);
+        service = new ServiceGUI(uRepo, fRepo);
+        serviceRequest = new ServiceRequest(uRepo, fRepo, rRepo);
         initView(primaryStage);
         primaryStage.setTitle("LogIn page");
         primaryStage.setWidth(600);

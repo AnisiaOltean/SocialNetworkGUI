@@ -10,8 +10,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.util.Iterator;
 import java.util.List;
@@ -96,6 +98,11 @@ public class AddView {
             Long id2= selected.getId();
             serviceRequest.sendRequest(id1, id2);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Sent friend request!");
+
+            //close window
+            Node source= (Node) actionEvent.getSource();
+            Stage stage= (Stage) source.getScene().getWindow();
+            stage.close();
         }catch (EntityNotFound | EntityAlreadyFound | NullPointerException | ValidationException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }

@@ -45,8 +45,10 @@ public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
         }
     }
 
-    public User logIn(String firstName, String lastName, String email){
-        User found= findByNameEmail(firstName, lastName, email);
+    public User logIn(String email){
+        User found= findWithEmail(email);
+        loggedUser= found;
+        if(found==null) throw new EntityNotFound("Nu exista userul cu emailul dat!");
         return found;
     }
 
@@ -147,8 +149,8 @@ public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
      * @throws EntityAlreadyFound if user already exists
      * @throws ValidationException if user is not valid
      */
-    public User addUser(String fName, String lName, String email){
-        User newUser= new User(fName, lName, email);
+    public User addUser(String fName, String lName, String email, String password){
+        User newUser= new User(fName, lName, email, password);
         newUser.setId(this.generateID());
         if(findWithEmail(newUser.getEmail())!=null){
             throw new EntityAlreadyFound("Userul cu emailul dat exista deja in lista!");

@@ -124,7 +124,8 @@ public class Service {
      * @throws ValidationException if user is not valid
      */
     public User addUser(String fName, String lName, String email){
-        User newUser= new User(fName, lName, email);
+        String password= "parola";
+        User newUser= new User(fName, lName, email, password);
         newUser.setId(this.generateID());
         if(findWithEmail(newUser.getEmail())!=null){
             throw new EntityAlreadyFound("Userul cu emailul dat exista deja in lista!");
