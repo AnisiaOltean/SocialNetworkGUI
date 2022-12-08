@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -137,18 +138,33 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
 
     public void handleLogOut(ActionEvent actionEvent) throws IOException {
         service.logOut();
-        stage.close();
+        //stage.close();
 
         //go back to login page
-        Stage stage= new Stage();
-        stage.setTitle("Login page");
+//        Stage stage= new Stage();
+//        stage.setTitle("Login page");
+//        FXMLLoader loader= new FXMLLoader();
+//        loader.setLocation(getClass().getResource("/views/loginView.fxml"));
+//        AnchorPane layout= loader.load();
+//        Scene scene= new Scene(layout);
+//        stage.setScene(scene);
+//        //LoginController ctrl= loader.getController();
+//        //ctrl.setServiceGUI(service, serviceRequest);
+//        stage.show();
+
+
+        //go back to login page
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(getClass().getResource("/views/loginView.fxml"));
-        AnchorPane layout= loader.load();
-        Scene scene= new Scene(layout);
-        stage.setScene(scene);
+        Parent root= loader.load();
+        Stage stage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene= new Scene(root);
         LoginController ctrl= loader.getController();
         ctrl.setServiceGUI(service, serviceRequest);
+
+        stage.setWidth(600);
+        stage.setHeight(427);
+        stage.setScene(scene);
         stage.show();
     }
 }

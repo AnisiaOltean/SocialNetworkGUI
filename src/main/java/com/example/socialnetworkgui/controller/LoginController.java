@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -70,10 +71,10 @@ public class LoginController {
             }
 
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "V-ati logat cu succes!");
-            showUserDialog();
-            Node source= (Node) actionEvent.getSource();
-            Stage stage= (Stage) source.getScene().getWindow();
-            stage.close();
+            showUserDialog(actionEvent);
+            //Node source= (Node) actionEvent.getSource();
+            //Stage stage= (Stage) source.getScene().getWindow();
+            //stage.close();
         }catch (EntityNotFound e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         } catch (IOException e) {
@@ -81,14 +82,18 @@ public class LoginController {
         }
     }
 
-    private void showUserDialog() throws IOException {
-        Stage userStage= new Stage();
-        userStage.setTitle("User page");
+    private void showUserDialog(ActionEvent actionEvent) throws IOException {
+        //Stage userStage= new Stage();
+        //userStage.setTitle("User page");
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(getClass().getResource("/views/userView.fxml"));
-        AnchorPane layout= loader.load();
+        //loader.setLocation(getClass().getResource("/views/mainView.fxml"));
+        Parent root= loader.load();
 
-        Scene scene= new Scene(layout);
+        Stage userStage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene= new Scene(root);
+        userStage.setWidth(600);
+        userStage.setHeight(510);
         userStage.setScene(scene);
         UserController userController= loader.getController();
         userController.setService(serviceGUI, serviceRequest, userStage);

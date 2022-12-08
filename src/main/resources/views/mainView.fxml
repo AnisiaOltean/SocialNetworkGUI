@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <tabs>
+    <Tab text="Account">
+      <content>
+          <fx:include source="userView.fxml" />
+      </content>
+    </Tab>
+    <Tab text="AddFriend">
+      <content>
+          <fx:include source="addView.fxml" />
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>

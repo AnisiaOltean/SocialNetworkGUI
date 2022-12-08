@@ -29,10 +29,7 @@ public class AddView {
     private ObservableList<User> model= FXCollections.observableArrayList();
 
     @FXML
-    private TextField firstNameLbl;
-
-    @FXML
-    private TextField secondNameLbl;
+    private TextField searchLbl;
 
     @FXML
     private TableView<User> usersTable;
@@ -56,18 +53,26 @@ public class AddView {
     }
 
     private void initModel(){
-        Iterable<User> allU= serviceGUI.getAllUsers();
-        model.setAll(StreamSupport.stream(allU.spliterator(), false).collect(Collectors.toList()));
-        firstNameLbl.textProperty().addListener(o->handleSearch());
-        secondNameLbl.textProperty().addListener(o->handleSearch());
+        //Iterable<User> allU= serviceGUI.getAllUsers();
+        //model.setAll(StreamSupport.stream(allU.spliterator(), false).collect(Collectors.toList()));
+        searchLbl.textProperty().addListener(o->handleSearch());
     }
 
     private void handleSearch(){
-        Predicate<User> p1= u-> u.getFirstName().startsWith(firstNameLbl.getText());
-        Predicate<User> p2= u-> u.getLastName().startsWith(secondNameLbl.getText());
+        String[] text = searchLbl.getText().split(" ");
+        String nume1= text[0];
+        String nume2;
+        if(text.length>1)
+            nume2= text[1];
+        else nume2="";
 
+
+        Predicate<User> p1= u-> u.getFirstName().startsWith(nume1);
+        Predicate<User> p2= u-> u.getLastName().startsWith(nume2);
+        Predicate<User> p3= u-> u.getFirstName().startsWith(nume2);
+        Predicate<User> p4= u-> u.getLastName().startsWith(nume1);
         Iterable<User> allU= serviceGUI.getAllUsers();
-        List<User> filtered= StreamSupport.stream(allU.spliterator(), false).filter(p1.and(p2)).collect(Collectors.toList());
+        List<User> filtered= StreamSupport.stream(allU.spliterator(), false).filter(p1.and(p2).or(p3.and(p4))).collect(Collectors.toList());
         model.setAll(filtered);
     }
 
