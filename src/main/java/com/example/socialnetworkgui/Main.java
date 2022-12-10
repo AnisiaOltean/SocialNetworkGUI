@@ -59,6 +59,7 @@ public class Main {
         System.out.println("Aici--------------------------");
         Iterable<Request> all= serviceRequest.allRequests();
         System.out.println(all);
+        System.out.println(uRepo.findAll());
 //
 //        all.forEach(System.out::println);
 //

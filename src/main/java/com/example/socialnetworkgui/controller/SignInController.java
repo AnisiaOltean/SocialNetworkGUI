@@ -37,6 +37,14 @@ public class SignInController {
 
     private ServiceRequest serviceRequest;
 
+    @FXML
+    public void initialize(){
+        firstNameText.setPromptText("First Name");
+        lastNameText.setPromptText("Last Name");
+        emailText.setPromptText("adress@email.com");
+        passwordText.setPromptText("******");
+    }
+
     public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest){
         this.serviceGUI=serviceGUI;
         this.serviceRequest= serviceRequest;
@@ -52,8 +60,7 @@ public class SignInController {
         Scene scene= new Scene(layout);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI, serviceRequest, userStage);
-
+        userController.setService(serviceGUI, serviceRequest);
         userStage.show();
     }
 

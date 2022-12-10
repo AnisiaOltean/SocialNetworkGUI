@@ -92,11 +92,11 @@ public class LoginController {
 
         Stage userStage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene= new Scene(root);
-        userStage.setWidth(600);
-        userStage.setHeight(510);
+        userStage.setWidth(800);
+        userStage.setHeight(600);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI, serviceRequest, userStage);
+        userController.setService(serviceGUI, serviceRequest);
 
         userStage.show();
     }
@@ -119,13 +119,16 @@ public class LoginController {
 //    }
 
     public void handleSignLink(ActionEvent actionEvent) throws IOException {
-        Stage userStage= new Stage();
-        userStage.setTitle("SignIn page");
+        //Stage userStage= new Stage();
+        //userStage.setTitle("SignIn page");
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(getClass().getResource("/views/signInView.fxml"));
-        AnchorPane layout= loader.load();
+        Parent layout= loader.load();
 
+        Stage userStage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene= new Scene(layout);
+        userStage.setWidth(600);
+        userStage.setHeight(500);
         userStage.setScene(scene);
         SignInController signInController= loader.getController();
         signInController.setServiceGUI(serviceGUI, serviceRequest);

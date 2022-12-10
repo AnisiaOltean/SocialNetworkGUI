@@ -124,6 +124,7 @@ public class User extends Entity<Long>{
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='"+email+'\''+
+                ", password='"+password+'\''+
                 ", friends='"+ this.getFriendsString()+'\''+
                 '}';
     }

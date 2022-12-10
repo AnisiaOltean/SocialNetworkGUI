@@ -4,30 +4,60 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="userView" prefHeight="500.0" prefWidth="600.0" stylesheets="@../css/user.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.UserController">
+<AnchorPane fx:id="userView" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/user.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.UserController">
    <children>
-      <TableView fx:id="tableView" layoutX="54.0" layoutY="93.0" prefHeight="289.0" prefWidth="477.0">
+      <TableView fx:id="tableView" layoutX="54.0" layoutY="156.0" prefHeight="289.0" prefWidth="675.0" AnchorPane.leftAnchor="71.0" AnchorPane.rightAnchor="71.0">
         <columns>
-          <TableColumn fx:id="fnameColumn" prefWidth="140.5" text="First Name" />
-          <TableColumn fx:id="lnameColumn" minWidth="0.0" prefWidth="197.5" text="Last Name" />
-          <TableColumn fx:id="emailColumn" prefWidth="137.0" text="Email" />
+          <TableColumn fx:id="fnameColumn" prefWidth="209.0" text="First Name" />
+          <TableColumn fx:id="lnameColumn" minWidth="0.0" prefWidth="262.5" text="Last Name" />
+          <TableColumn fx:id="emailColumn" prefWidth="202.5" text="Email" />
         </columns>
       </TableView>
-      <Label fx:id="loggedLabel" layoutX="55.0" layoutY="22.0" prefHeight="37.0" prefWidth="477.0" text="Logged in as:">
+      <Label fx:id="loggedLabel" layoutX="71.0" layoutY="68.0" prefHeight="37.0" prefWidth="405.0" text="Logged in as:">
          <font>
             <Font size="21.0" />
          </font>
       </Label>
-      <Button fx:id="addFriendBtn" layoutX="440.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleAddFriend" prefHeight="31.0" prefWidth="91.0" text="Add friend" />
-      <Button fx:id="removeFriendBtn" layoutX="317.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleRemove" prefHeight="31.0" prefWidth="112.0" text="Remove friend" />
-      <Button fx:id="requestsBtn" layoutX="149.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleRequests" prefHeight="31.0" prefWidth="123.0" text="Friend requests" />
-      <Label fx:id="friendListlbl" layoutX="54.0" layoutY="59.0" prefHeight="23.0" prefWidth="467.0" text="FriendList:">
+      <Button fx:id="addFriendBtn" layoutX="639.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleAddFriend" prefHeight="37.0" prefWidth="112.0" text="Add friend" AnchorPane.rightAnchor="71.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user-add.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="removeFriendBtn" layoutX="617.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleRemove" prefHeight="37.0" prefWidth="129.0" text="Remove friend" AnchorPane.rightAnchor="71.0">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/delete-user%20.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="requestsBtn" layoutX="460.0" layoutY="25.0" mnemonicParsing="false" onAction="#handleRequests" prefHeight="37.0" prefWidth="137.0" text="Friend requests">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/users-alt.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Label fx:id="friendListlbl" layoutX="71.0" layoutY="114.0" prefHeight="23.0" prefWidth="405.0" text="FriendList:">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Button fx:id="logOutBtn" layoutX="62.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="31.0" prefWidth="73.0" text="Log Out" />
+      <Button fx:id="logOutBtn" layoutX="71.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleLogOut" prefHeight="37.0" prefWidth="100.0" text="Log Out">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="20.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-cancel-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </AnchorPane>

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -37,10 +39,17 @@
                   <Insets left="20.0" right="100.0" />
                </GridPane.margin>
             </PasswordField>
-            <Button fx:id="logInBtn" mnemonicParsing="false" onAction="#handleLogIn" prefHeight="40.0" prefWidth="78.0" text="Log in" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+            <Button fx:id="logInBtn" mnemonicParsing="false" onAction="#handleLogIn" prefHeight="40.0" prefWidth="80.0" text="Log in" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="100.0" />
                </GridPane.margin>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-login-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Hyperlink fx:id="signInLink" onAction="#handleSignLink" prefHeight="27.0" prefWidth="60.0" text="Sign Up" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                <font>

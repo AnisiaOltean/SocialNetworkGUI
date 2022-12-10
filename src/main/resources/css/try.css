@@ -1,0 +1,8 @@
+
+#helloBtn{
+    -fx-background-color: red;
+}
+
+.menu, .button{
+    -fx-background-color: green;
+}

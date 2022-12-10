@@ -63,12 +63,10 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
     @FXML
     private Button logOutBtn;
 
-    private Stage stage;
-
-    public void setService(ServiceGUI service, ServiceRequest serviceRequest, Stage stage){
+    public void setService(ServiceGUI service, ServiceRequest serviceRequest){
         this.service= service;
         this.serviceRequest=serviceRequest;
-        this.stage=stage;
+        //this.stage=stage;
         service.addObserver(this);
         initModel();
     }

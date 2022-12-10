@@ -67,10 +67,10 @@ public class AddView {
         else nume2="";
 
 
-        Predicate<User> p1= u-> u.getFirstName().startsWith(nume1);
-        Predicate<User> p2= u-> u.getLastName().startsWith(nume2);
-        Predicate<User> p3= u-> u.getFirstName().startsWith(nume2);
-        Predicate<User> p4= u-> u.getLastName().startsWith(nume1);
+        Predicate<User> p1= u-> u.getFirstName().toLowerCase().startsWith(nume1.toLowerCase());
+        Predicate<User> p2= u-> u.getLastName().toLowerCase().startsWith(nume2.toLowerCase());
+        Predicate<User> p3= u-> u.getFirstName().toLowerCase().startsWith(nume2.toLowerCase());
+        Predicate<User> p4= u-> u.getLastName().toLowerCase().startsWith(nume1.toLowerCase());
         Iterable<User> allU= serviceGUI.getAllUsers();
         List<User> filtered= StreamSupport.stream(allU.spliterator(), false).filter(p1.and(p2).or(p3.and(p4))).collect(Collectors.toList());
         model.setAll(filtered);

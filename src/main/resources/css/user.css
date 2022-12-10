@@ -38,3 +38,12 @@
     -fx-background-color: #004f32;
     -fx-text-fill: #f7faf8;
 }
+
+#logOutBtn{
+    -fx-background-color: #24484C;
+    -fx-text-fill: white;
+}
+
+#logOutBtn:hover{
+    -fx-background-color: black;
+}

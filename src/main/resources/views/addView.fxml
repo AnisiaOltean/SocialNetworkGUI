@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -20,7 +22,14 @@
             <TableColumn fx:id="emailColumn" prefWidth="156.5" text="Email" />
         </columns>
       </TableView>
-      <Button fx:id="addBtn" layoutX="420.0" layoutY="406.0" mnemonicParsing="false" onAction="#addRequest" prefHeight="35.0" prefWidth="110.0" text="Send Request" />
+      <Button fx:id="addBtn" layoutX="403.0" layoutY="406.0" mnemonicParsing="false" onAction="#addRequest" prefHeight="35.0" prefWidth="127.0" text="Send Request">
+         <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-send-letter-48.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <GridPane layoutX="50.0" layoutY="354.0" prefHeight="35.0" prefWidth="500.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="254.5" minWidth="10.0" prefWidth="250.5" />
@@ -35,7 +44,14 @@
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </TextField>
-            <Label alignment="CENTER" prefHeight="35.0" prefWidth="113.0" text="Search by name:" GridPane.halignment="RIGHT" />
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="133.0" text="Search by name:" GridPane.halignment="RIGHT">
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-search-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Label>
          </children>
       </GridPane>
    </children>

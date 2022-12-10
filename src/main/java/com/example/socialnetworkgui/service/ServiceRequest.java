@@ -47,8 +47,15 @@ public class ServiceRequest implements Observable<RequestEntityChangeEvent> {
     }
 
     public void sendRequest(Long id1, Long id2){
+        //check if users are already friends
+        Friendship found= friendshipRepo.findOne(new Pair<>(id1, id2));
+        if(found != null){
+            throw new EntityAlreadyFound("Users are already friends!");
+        }
         Request r= new Request(id1, id2, LocalDateTime.now(), RequestStatus.SENT);
         Request added=  requestRepo.save(r);
+
+        //check if request already exists
         if(added!=null){
             throw new EntityAlreadyFound("Cererea exista deja!");
         }

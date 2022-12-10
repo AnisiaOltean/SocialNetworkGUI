@@ -24,3 +24,9 @@
     -fx-background-color: #004f32;
     -fx-text-fill: white;
 }
+
+#firstNameText, #lastNameText, #emailText, #passwordText{
+    -fx-font-family: "Segoe UI Black";
+    -fx-font-size: 13px;
+    -fx-prompt-text-fill: #d3d3d3;
+}
