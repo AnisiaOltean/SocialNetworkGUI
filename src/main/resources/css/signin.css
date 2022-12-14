@@ -30,3 +30,7 @@
     -fx-font-size: 13px;
     -fx-prompt-text-fill: #d3d3d3;
 }
+
+#btnBack{
+    -fx-background-color: transparent;
+}

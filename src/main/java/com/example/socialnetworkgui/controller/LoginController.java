@@ -128,7 +128,7 @@ public class LoginController {
         Stage userStage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene= new Scene(layout);
         userStage.setWidth(600);
-        userStage.setHeight(500);
+        userStage.setHeight(450);
         userStage.setScene(scene);
         SignInController signInController= loader.getController();
         signInController.setServiceGUI(serviceGUI, serviceRequest);

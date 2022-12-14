@@ -34,5 +34,14 @@
       <Label layoutX="140.0" layoutY="106.0" prefHeight="35.0" prefWidth="79.0" text="First Name: " />
       <TextField fx:id="firstNameText" layoutX="240.0" layoutY="109.0" prefHeight="25.0" prefWidth="187.0" />
       <Label layoutX="140.0" layoutY="195.0" prefHeight="29.0" prefWidth="79.0" text="Email:" />
+      <Button fx:id="btnBack" layoutX="40.0" layoutY="36.0" mnemonicParsing="false" onAction="#handleBack">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/left%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

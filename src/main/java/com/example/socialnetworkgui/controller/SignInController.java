@@ -7,17 +7,24 @@ import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SignInController {
+
+    @FXML
+    private Button btnBack;
+
     @FXML
     private TextField emailText;
 
@@ -84,5 +91,21 @@ public class SignInController {
         }catch (IOException | EntityAlreadyFound | EntityNotFound | ValidationException e){
             MessageAlert.showErrorMessage(null, e.getMessage());
         }
+    }
+
+    public void handleBack(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/loginView.fxml"));
+        Parent root= loader.load();
+
+        Stage stage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene= new Scene(root);
+        stage.setWidth(600);
+        stage.setHeight(427);
+        stage.setScene(scene);
+        LoginController ctrl= loader.getController();
+        ctrl.setServiceGUI(serviceGUI, serviceRequest);
+
+        stage.show();
     }
 }
