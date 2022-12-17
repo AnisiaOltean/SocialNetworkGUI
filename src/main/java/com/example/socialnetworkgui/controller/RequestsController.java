@@ -16,7 +16,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -24,6 +27,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.function.Predicate;
@@ -58,6 +62,9 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
 
     @FXML
     private TableView<UserRequestDTO> tableRequests;
+
+    @FXML
+    private Button sentReqBtn;
 
     ObservableList<UserRequestDTO> model= FXCollections.observableArrayList();
 
@@ -150,4 +157,19 @@ public class RequestsController implements Observer<RequestEntityChangeEvent> {
         }
     }
 
+    public void getSentRequests(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/sentRequestsView.fxml"));
+
+        Parent root= loader.load();
+        Stage stage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Scene scene= new Scene(root);
+        stage.setTitle("Sent requests");
+        //stage.setWidth(600);
+        //stage.setHeight(400);
+        stage.setScene(scene);
+        SentRequestsController ctrl = loader.getController();
+        ctrl.setServiceGUI(serviceGUI, serviceRequest);
+        stage.show();
+    }
 }

@@ -34,3 +34,7 @@
 #btnBack{
     -fx-background-color: transparent;
 }
+
+#btnBack:hover{
+    -fx-cursor: hand;
+}
