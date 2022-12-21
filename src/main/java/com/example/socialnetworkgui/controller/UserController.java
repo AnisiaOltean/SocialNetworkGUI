@@ -4,6 +4,7 @@ import com.example.socialnetworkgui.domain.Friendship;
 import com.example.socialnetworkgui.domain.User;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceMessage;
 import com.example.socialnetworkgui.service.ServiceRequest;
 import com.example.socialnetworkgui.utils.events.FriendshipEntityChangeEvent;
 import com.example.socialnetworkgui.utils.events.UserEntityChangeEvent;
@@ -31,10 +32,15 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
 
     ServiceGUI service;
     ServiceRequest serviceRequest;
+
+    ServiceMessage serviceMessage;
     ObservableList<User> model= FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane userView;
+
+    @FXML
+    private Button chatBtn;
 
     @FXML
     public TableView<User> tableView;
@@ -63,9 +69,10 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
     @FXML
     private Button logOutBtn;
 
-    public void setService(ServiceGUI service, ServiceRequest serviceRequest){
+    public void setService(ServiceGUI service, ServiceRequest serviceRequest, ServiceMessage serviceMessage){
         this.service= service;
         this.serviceRequest=serviceRequest;
+        this.serviceMessage=serviceMessage;
         //this.stage=stage;
         service.addObserver(this);
         initModel();
@@ -158,11 +165,30 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
         Stage stage= (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         Scene scene= new Scene(root);
         LoginController ctrl= loader.getController();
-        ctrl.setServiceGUI(service, serviceRequest);
+        ctrl.setServiceGUI(service, serviceRequest, serviceMessage);
 
         stage.setWidth(600);
         stage.setHeight(427);
         stage.setScene(scene);
+        stage.show();
+    }
+
+    public void handleChat(ActionEvent actionEvent) throws IOException {
+        User selected= tableView.getSelectionModel().getSelectedItem();
+        if(selected==null){
+            MessageAlert.showErrorMessage(null, "Nu ati selectat prietenul!");
+            return;
+        }
+
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(getClass().getResource("/views/chatView.fxml"));
+        Parent root= loader.load();
+        Stage stage= new Stage();
+        stage.setTitle("Chat page");
+        Scene scene= new Scene(root);
+        stage.setScene(scene);
+        ChatController ctrl= loader.getController();
+        ctrl.setService(service, serviceMessage, selected);
         stage.show();
     }
 }

@@ -59,5 +59,6 @@
                </image>
             </ImageView>
          </graphic></Button>
+      <Button fx:id="chatBtn" layoutX="503.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleChat" text="Chat" />
    </children>
 </AnchorPane>

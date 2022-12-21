@@ -71,6 +71,10 @@ public class ServiceGUI implements Observable<FriendshipEntityChangeEvent> {
         return this.loggedUser;
     }
 
+    public User getWithId(Long id){
+        return userRepo.findOne(id);
+    }
+
     /**
      * Adds friendship with given ids
      * @param id1- Long, id of first user

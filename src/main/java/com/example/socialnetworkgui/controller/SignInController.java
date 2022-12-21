@@ -3,6 +3,7 @@ import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.domain.exceptions.ValidationException;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceMessage;
 import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,6 +45,8 @@ public class SignInController {
 
     private ServiceRequest serviceRequest;
 
+    private ServiceMessage serviceMessage;
+
     @FXML
     public void initialize(){
         firstNameText.setPromptText("First Name");
@@ -52,9 +55,10 @@ public class SignInController {
         passwordText.setPromptText("******");
     }
 
-    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest){
+    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest, ServiceMessage serviceMessage){
         this.serviceGUI=serviceGUI;
         this.serviceRequest= serviceRequest;
+        this.serviceMessage= serviceMessage;
     }
 
     private void showUserDialog() throws IOException {
@@ -67,7 +71,7 @@ public class SignInController {
         Scene scene= new Scene(layout);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI, serviceRequest);
+        userController.setService(serviceGUI, serviceRequest, serviceMessage);
         userStage.show();
     }
 
@@ -104,7 +108,7 @@ public class SignInController {
         stage.setHeight(427);
         stage.setScene(scene);
         LoginController ctrl= loader.getController();
-        ctrl.setServiceGUI(serviceGUI, serviceRequest);
+        ctrl.setServiceGUI(serviceGUI, serviceRequest, serviceMessage);
 
         stage.show();
     }

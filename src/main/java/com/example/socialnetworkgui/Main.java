@@ -93,5 +93,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
         serviceMessage.getAllMessages().forEach(System.out::println);
+
+        System.out.println("Gasit:");
+        System.out.println(serviceMessage.getWithId(2L));
     }
 }

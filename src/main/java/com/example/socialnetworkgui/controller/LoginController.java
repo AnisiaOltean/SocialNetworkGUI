@@ -5,6 +5,7 @@ import com.example.socialnetworkgui.domain.exceptions.EntityAlreadyFound;
 import com.example.socialnetworkgui.domain.exceptions.EntityNotFound;
 import com.example.socialnetworkgui.domain.exceptions.ValidationException;
 import com.example.socialnetworkgui.service.ServiceGUI;
+import com.example.socialnetworkgui.service.ServiceMessage;
 import com.example.socialnetworkgui.service.ServiceRequest;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +24,8 @@ public class LoginController {
 
     ServiceGUI serviceGUI;
     ServiceRequest serviceRequest;
+
+    ServiceMessage serviceMessage;
     @FXML
     private TextField emailField;
 
@@ -45,9 +48,10 @@ public class LoginController {
     @FXML
     private Button logInBtn;
 
-    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest){
+    public void setServiceGUI(ServiceGUI serviceGUI, ServiceRequest serviceRequest, ServiceMessage serviceMessage){
         this.serviceGUI= serviceGUI;
         this.serviceRequest=serviceRequest;
+        this.serviceMessage=serviceMessage;
     }
 
     @FXML
@@ -96,7 +100,7 @@ public class LoginController {
         userStage.setHeight(600);
         userStage.setScene(scene);
         UserController userController= loader.getController();
-        userController.setService(serviceGUI, serviceRequest);
+        userController.setService(serviceGUI, serviceRequest, serviceMessage);
 
         userStage.show();
     }
@@ -131,7 +135,7 @@ public class LoginController {
         userStage.setHeight(450);
         userStage.setScene(scene);
         SignInController signInController= loader.getController();
-        signInController.setServiceGUI(serviceGUI, serviceRequest);
+        signInController.setServiceGUI(serviceGUI, serviceRequest, serviceMessage);
 
         userStage.show();
     }
