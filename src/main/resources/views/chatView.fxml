@@ -5,21 +5,29 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.ChatController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/chat.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.socialnetworkgui.controller.ChatController">
    <children>
       <TableView fx:id="messageTable" layoutX="200.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
         <columns>
-          <TableColumn fx:id="fnameColumn" prefWidth="83.0" text="First Name" />
-          <TableColumn fx:id="lNameColumn" prefWidth="88.0" text="Last Name" />
+          <TableColumn fx:id="fnameColumn" prefWidth="81.5" text="First Name" />
+          <TableColumn fx:id="lNameColumn" prefWidth="76.0" text="Last Name" />
             <TableColumn fx:id="textColumn" prefWidth="218.0" text="Text" />
-            <TableColumn fx:id="sentColumn" prefWidth="110.0" text="Sent At" />
+            <TableColumn fx:id="sentColumn" prefWidth="123.5" text="Sent At" />
         </columns>
       </TableView>
-      <TextField fx:id="messageTextField" layoutX="51.0" layoutY="324.0" prefHeight="25.0" prefWidth="415.0" AnchorPane.leftAnchor="50.0" />
-      <Button fx:id="sendMessageBtn" layoutX="498.0" layoutY="324.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="25.0" prefWidth="53.0" text="Send" AnchorPane.rightAnchor="50.0" />
+      <TextField fx:id="messageTextField" layoutX="51.0" layoutY="316.0" prefHeight="37.0" prefWidth="415.0" AnchorPane.leftAnchor="50.0" />
+      <Button fx:id="sendMessageBtn" layoutX="465.0" layoutY="317.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="35.0" prefWidth="81.0" text="Send" AnchorPane.rightAnchor="50.0">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/send%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Label fx:id="messageToLbl" layoutX="50.0" layoutY="52.0" prefHeight="17.0" prefWidth="500.0" text="Message To:" />
    </children>
 </AnchorPane>

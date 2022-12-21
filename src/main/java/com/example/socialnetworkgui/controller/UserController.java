@@ -121,6 +121,7 @@ public class UserController implements Observer<FriendshipEntityChangeEvent>{
             Long id2= selected.getId();
             service.removeFriendship(id1, id2);
             serviceRequest.deleteRequest(id1, id2);
+            serviceMessage.deleteConversation(id1, id2);
             MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Info", "Deleted friendship!");
         }catch (EntityNotFound | NullPointerException e){
             MessageAlert.showErrorMessage(null, e.getMessage());

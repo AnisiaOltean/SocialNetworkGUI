@@ -59,6 +59,13 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="chatBtn" layoutX="503.0" layoutY="473.0" mnemonicParsing="false" onAction="#handleChat" text="Chat" />
+      <Button fx:id="chatBtn" layoutX="505.0" layoutY="467.0" mnemonicParsing="false" onAction="#handleChat" prefHeight="37.0" prefWidth="77.0" text="Chat">
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/chat.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </AnchorPane>

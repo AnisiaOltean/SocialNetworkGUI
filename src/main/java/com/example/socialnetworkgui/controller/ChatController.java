@@ -79,9 +79,10 @@ public class ChatController implements Observer<MessageEntityChangeEvent> {
         sentColumn.setCellValueFactory(new PropertyValueFactory<>("sentAt"));
 
         messageTable.setItems(model);
+        messageTable.setFixedCellSize(30);
     }
     private void initModel(){
-        messageToLbl.setText("Message To: "+ conversationPartner.getFirstName()+""+conversationPartner.getLastName());
+        messageToLbl.setText("Message To: "+ conversationPartner.getFirstName()+" "+conversationPartner.getLastName());
 
         Iterable<Message> all = serviceMessage.getAllMessages();
         Predicate<Message> p1= m-> m.getId1().equals(serviceGUI.getLoggedUser().getId())&&m.getId2().equals(conversationPartner.getId());
@@ -99,6 +100,13 @@ public class ChatController implements Observer<MessageEntityChangeEvent> {
         String messageText= messageTextField.getText();
         Long id1= serviceGUI.getLoggedUser().getId();
         Long id2= conversationPartner.getId();
+
+        Predicate<User> getWithId= u-> u.getId().equals(id2);
+
+        if(serviceGUI.getLoggedUser().getFriends().stream().filter(getWithId).findFirst().isEmpty()){
+            MessageAlert.showErrorMessage(null, "Partenerul nu exista!");
+            return;
+        }
         try{
             serviceMessage.addMessage(id1, id2, messageText);
             messageTextField.clear();

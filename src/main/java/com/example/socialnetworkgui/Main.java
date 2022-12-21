@@ -96,5 +96,10 @@ public class Main {
 
         System.out.println("Gasit:");
         System.out.println(serviceMessage.getWithId(2L));
+
+        Message m1= new Message(9L, 10L,
+                LocalDateTime.parse("2022-12-21 16:00", DATE_TIME_FORMATTER), "Hey ;)");
+        m1.setId(3L);
+        repoM.save(m1);
     }
 }

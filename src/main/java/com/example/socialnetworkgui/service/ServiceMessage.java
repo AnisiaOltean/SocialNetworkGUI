@@ -12,6 +12,9 @@ import com.example.socialnetworkgui.utils.observer.Observer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ServiceMessage implements Observable<MessageEntityChangeEvent> {
     private Repository<Long, Message> repoM;
@@ -48,6 +51,19 @@ public class ServiceMessage implements Observable<MessageEntityChangeEvent> {
         else{
             notifyObservers(new MessageEntityChangeEvent(gasit, null));
         }
+    }
+
+    //deletes messages sent between users with id1 and id2
+    public void deleteConversation(Long id1, Long id2){
+        Predicate<Message> p1= m-> m.getId1().equals(id1)&&m.getId2().equals(id2);
+        Predicate<Message> p2= m-> m.getId2().equals(id1)&&m.getId1().equals(id2);
+
+        List<Message> toDelete= StreamSupport.stream(getAllMessages().spliterator(), false).
+                filter(p1.or(p2)).collect(Collectors.toList());
+        for(Message m: toDelete){
+            deleteMessage(m.getId());
+        }
+        notifyObservers(new MessageEntityChangeEvent(null));
     }
 
     public Message getWithId(Long idMessage){
