@@ -1,5 +1,5 @@
 # SocialNetworkGUI
-## Basic social network app build with JavaFX framework  
+## Basic social network app build with JavaFX  
 > Login  
 <img src="https://user-images.githubusercontent.com/92650251/225723898-23106bcf-6e8a-46fb-b624-d46afb9a0cdd.png" width="350" height="300" alt="Login">
 
